@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Website</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 400px; margin: auto; }
+        label { display: block; margin: 10px 0 5px; }
+        input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; }
+        button { padding: 10px 15px; background: #007BFF; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <h1>Create Your Website</h1>
+    <form id="websiteForm" method="POST" action="send_email.php">
+        <label for="name">Website Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="logo">Logo URL:</label>
+        <input type="url" id="logo" name="logo" required>
+
+        <label for="description">Website Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <button type="submit">Create Website</button>
+    </form>
+
+</body>
+</html>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars($_POST['name']);
+    $logo = htmlspecialchars($_POST['logo']);
+    $description = htmlspecialchars($_POST['description']);
+
+    // Recipient email
+    $to = "your-email@gmail.com"; // Replace with your email address
+    $subject = "New Website Request: $name";
+    $message = "Website Name: $name\nLogo URL: $logo\nDescription: $description";
+    $headers = "From: noreply@yourdomain.com"; // Use a valid email address
+
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Website request sent successfully!";
+    } else {
+        echo "Error sending request. Please try again.";
+    }
+} else {
+    echo "Invalid request.";
+}
+?>
