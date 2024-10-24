@@ -31,25 +31,3 @@
 
 </body>
 </html>
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST['name']);
-    $logo = htmlspecialchars($_POST['logo']);
-    $description = htmlspecialchars($_POST['description']);
-
-    // Recipient email
-    $to = "your-email@gmail.com"; // Replace with your email address
-    $subject = "New Website Request: $name";
-    $message = "Website Name: $name\nLogo URL: $logo\nDescription: $description";
-    $headers = "From: noreply@yourdomain.com"; // Use a valid email address
-
-    if (mail($to, $subject, $message, $headers)) {
-        echo "Website request sent successfully!";
-    } else {
-        echo "Error sending request. Please try again.";
-    }
-} else {
-    echo "Invalid request.";
-}
-?>
